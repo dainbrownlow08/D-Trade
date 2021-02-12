@@ -1,83 +1,75 @@
 import React from 'react'
-import './App.css';
-import {pub,priv} from './keys.js'
-const Binance = require('node-binance-api');
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+
+import Navbar from './components/Navbar.js'
+import Login from './components/Login.js'
+import Register from './components/register.js'
+import Wallet from './components/wallet.js'
+import Test from './components/test.js'
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 class App extends React.Component {
 
   state = {
-    Account: 2,
-    Balance: 0,
-    BTC: 0,
-    ETH: 0,
-    DOGE: 0
+    loggedIn: null,
+    wallet: null
   }
 
-  prices = () => {
-    const binance = new Binance().options({
-      APIKEY: pub,
-      APISECRET: priv
-    });
-    binance.prices('BTCUSDT', (error, ticker) => {
-      this.setState({BTC: parseFloat(ticker.BTCUSDT)})
-    });
-    binance.prices('ETHUSDT', (error, ticker) => {
-      this.setState({ETH: parseFloat(ticker.ETHUSDT)})
-    });
-    binance.prices('DOGEUSDT', (error, ticker) => {
-      this.setState({DOGE: parseFloat(ticker.DOGEUSDT)}, () => this.getWallet(3))
-    });
+  handleLogin = (e) => {
+    e.preventDefault()
+    let username = e.target.username.value
+    fetch(`http://localhost:3000/users/${username}`)
+    .then(res => res.json())
+    .then(newWallet => {
+      newWallet === null ? console.log("WRONG USERNAME") : this.setState({loggedIn: true, wallet: newWallet})
+    })
   }
 
-  getWallet = (id) => {
-    fetch(`http://localhost:3000/wallets/${id}`)
-      .then(res => res.json())
-      .then(res => {
-        let btcTotal = res.btc * this.state.BTC
-        let ethTotal = res.eth * this.state.ETH
-        let dogeTotal = res.doge * this.state.DOGE
-        let currentBalance = res.cash + btcTotal + ethTotal + dogeTotal
-        this.setWallet(id,currentBalance)
-      })
-  }
-
-  setWallet = (id,newBalance) => {
-    fetch(`http://localhost:3000/wallets/${id}`,{
-      method:'PATCH',
-      headers:{'content-type':'application/json'},
-      body: JSON.stringify({balance: newBalance})
+  handleRegister = (e) => {
+    e.preventDefault()
+    let username = e.target.username.value
+    fetch('http://localhost:3000/users', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(username)
     })
     .then(res => res.json())
-    .then(res => {
-      this.setState({
-        Balance: res.balance
-      })
-      console.log(res)
+    .then(newWallet => {
+      newWallet === null ? console.log("INVALID USERNAME") : this.setState({loggedIn: true, wallet: newWallet})
     })
   }
 
-  componentDidMount() {
-    this.prices()
-    // this.getWallet(3)
-    setInterval(this.prices,5000)
-    // setInterval(() => this.getWallet(3),5000)
+  handleLogout = () => {
+    this.setState({
+      loggedIn: null,
+      wallet: null
+    })
   }
-
-
 
   render() {
     return (
-      <div className="App">
-      <p>TEST</p>
-      <h2>Balance: {this.state.Balance}</h2>
-      <h2>BTC: {this.state.BTC}</h2>
-      <h2>ETH: {this.state.ETH}</h2>
-      <h2>DOGE: {this.state.DOGE}</h2>
-    </div>
+      <Router>
+        <div>
+          <Navbar loggedIn={this.state.loggedIn} handleLogout={this.handleLogout}/>
+          <Route exact path="/login">
+            {this.state.loggedIn === true ? <Redirect to="/wallet" /> : <Login handleLogin={this.handleLogin}/>}
+          </Route>
+          <Route exact path="/register">
+            {this.state.loggedIn === true ? <Redirect to="/wallet" /> : <Register handleRegister={this.handleRegister}/>}
+          </Route>
+          <Route exact path='/wallet'>
+            {this.state.loggedIn === true ? <Wallet wallet={this.state.wallet}/> : <Redirect to="/home" />}
+          </Route>
+        </div>
+      </Router>
     )
   }
-
-
 }
 
 export default App;
