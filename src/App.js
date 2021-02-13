@@ -8,7 +8,7 @@ import Register from './components/register.js'
 import Wallet from './components/wallet.js'
 import Test from './components/test.js'
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 
 class App extends React.Component {
