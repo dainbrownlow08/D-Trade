@@ -11,7 +11,6 @@ import Navigation from "./components/Navigation.js";
 import Login from "./components/Login.js";
 import Register from "./components/register.js";
 import Wallet from "./components/wallet.js";
-import Test from "./components/test.js";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
