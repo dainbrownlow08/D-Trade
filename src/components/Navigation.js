@@ -6,7 +6,7 @@ function Navigation(props) {
   return (
     <Fragment>
       <Navbar>
-        <LinkContainer to="/">
+        <LinkContainer style={{color: 'gray'}} to="/">
           <Navbar.Brand>D-TRADE</Navbar.Brand>
         </LinkContainer>
         <Nav>
@@ -20,7 +20,7 @@ function Navigation(props) {
               </LinkContainer>
             </Fragment>
           ) : (
-            <LinkContainer to="/">
+            <LinkContainer style={{color: 'gray'}} to="/">
               <Nav.Link onClick={props.handleLogout}>LOGOUT</Nav.Link>
             </LinkContainer>
           )}

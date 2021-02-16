@@ -1,7 +1,13 @@
+import { redraw } from "plotly.js";
 import React from "react";
 import Plot from "react-plotly.js";
-import { pub, priv } from "../keys.js";
+import NewDoge from '../containers/NewDoge.png'
+import Ethereum from '../containers/Ethereum.png'
+import Bitcoin from '../containers/Bitcoin.png'
+import style from '../containers/style.css'
+// import { pub, priv } from "../keys.js";
 const Binance = require("node-binance-api");
+
 
 class Wallet extends React.Component {
   state = {
@@ -23,8 +29,8 @@ class Wallet extends React.Component {
 
   prices = () => {
     const binance = new Binance().options({
-      APIKEY: pub,
-      APISECRET: priv,
+      APIKEY: 'WG4DzDb0c8lynHfMv6BGr2wFoeXMUJHCvsfr5R8Fd440uScg1Y3Wono4EjlN3i9a',
+      APISECRET: 'X0kbMbhPp6LzaTdAqGgFuAFOewHjKdNycMfCu3LgnsO4mhT6wwjYHExnC7vnIkua',
     });
     binance.prices("BTCUSDT", (error, ticker) => {
       this.setState({ BTC: parseFloat(ticker.BTCUSDT) });
@@ -97,6 +103,7 @@ class Wallet extends React.Component {
   componentDidMount() {
     this.prices();
     this.interval = setInterval(this.prices, 5000);
+    document.body.style.background = '#121212'
   }
 
   componentWillUnmount() {
@@ -105,13 +112,23 @@ class Wallet extends React.Component {
 
   render() {
     return (
-      <div>
-        <p>TEST</p>
-        <h2>Balance: {this.state.Balance}</h2>
-        <h2>BTC: {this.state.BTC}</h2>
-        <h2>ETH: {this.state.ETH}</h2>
-        <h2>DOGE: {this.state.DOGE}</h2>
-
+        <div>
+          <div id="flex-container">
+        <div id="flex-item"style={{backgroundColor: '#1F1B24',  width: 300, justifyContent:'center', alignItems:'center', marginLeft: 'auto', float: 'left'}}>
+        <h2 style={{display: 'flex',  justifyContent:'center', alignItems:'center', color: 'white'}}><img src={Bitcoin} style={{height: 50, width:50}}/>BTC: {this.state.BTC}</h2>
+        </div>
+        <div id="flex-item" style={{backgroundColor: '#1F1B24',  justifyContent:'center', alignItems:'center', float: 'right', width: 350}}>
+        <h2 style={{display: 'flex',  justifyContent:'center', alignItems:'center', color: 'white'}}> <img src={NewDoge} style={{height: 50, width: 50}}/>DOGE: {this.state.DOGE}</h2>
+        </div>
+        <div id="flex-item" style={{ backgroundColor: '#1F1B24',  justifyContent:'center', alignItems:'center', marginLeft: 'auto', marginRight: 'auto', width: 300}}>
+        <h2 style={{display: 'flex',  justifyContent:'center', alignItems:'center', color: 'white'}}><img src={Ethereum} style={{height: 50, width: 50}}/>ETH: {this.state.ETH}</h2>
+        </div>
+        <div style={{backgroundColor: '#1F1B24',  justifyContent:'center', alignItems:'center', marginLeft: 'auto', marginRight: 'auto'}}>
+       </div>
+       <div style={{ backgroundColor: '#1F1B24',  width: 300, justifyContent:'center', alignItems:'center', marginLeft: 'auto', float: 'left'}}>
+       <h2 style={{display: 'flex',  justifyContent:'center', alignItems:'center', color: 'white', float: 'left'}}>Balance: {this.state.Balance}</h2>
+      </div>
+        <div style={{margin: 'auto', backgroundColor: '#1F1B24',  justifyContent:'center', alignItems:'center', width:1000}}>
         <Plot
           data={[
             {
@@ -126,6 +143,8 @@ class Wallet extends React.Component {
             width: 981,
             height: 600,
             title: "Your Balance",
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
             xaxis: {
               showgrid: false,
               visible: false,
@@ -136,6 +155,9 @@ class Wallet extends React.Component {
             },
           }}
         />
+        </div>
+        </div>
+        <footer style={{display: 'flex',  justifyContent:'center', alignItems:'center', color: 'white'}}>D-Trade by Dain Brownlow and Dustin Rothschild</footer>
       </div>
     );
   }
