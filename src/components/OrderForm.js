@@ -94,6 +94,12 @@ class OrderForm extends React.Component {
             <option value="BTC">BTC</option>
             <option value="ETH">ETH</option>
             <option value="DOGE">DOGE</option>
+            <option value="XRP">XRP</option>
+            <option value="LTC">LTC</option>
+            <option value="LINK">LINK</option>
+            <option value="XMR">XMR</option>
+            <option value="DOT">DOT</option>
+            <option value="UNI">UNI</option>
           </Form.Control>
           <Form.Group>
             <fieldset>

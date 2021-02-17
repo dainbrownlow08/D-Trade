@@ -18,9 +18,21 @@ class Wallet extends React.Component {
     BTC: 0,
     ETH: 0,
     DOGE: 0,
+    XRP: 0,
+    LTC: 0,
+    LINK: 0,
+    XMR: 0,
+    DOT: 0,
+    UNI: 0,
     BTCHolding: 0,
     ETHHolding: 0,
+    XRPHolding: 0,
     DOGEHolding: 0,
+    LTCHolding: 0,
+    LINKHolding: 0,
+    XMRHolding: 0,
+    DOTHolding: 0,
+    UNIHolding: 0,
     stockChartXValues: [],
     xCount: 0,
     stockChartYValues: [],
@@ -44,50 +56,116 @@ class Wallet extends React.Component {
         binance.prices("ETHUSDT", (error, ticker) => {
           this.setState({ ETH: parseFloat(ticker.ETHUSDT) }, () => {
             binance.prices("DOGEUSDT", (error, ticker) => {
-              this.setState({ DOGE: parseFloat(ticker.DOGEUSDT) }, () =>
-                this.getWallet(this.props.wallet.id)
-              );
+              this.setState({ DOGE: parseFloat(ticker.DOGEUSDT) }, () => {
+                binance.prices("XRPUSDT", (error, ticker) => {
+                  this.setState({ XRP: parseFloat(ticker.XRPUSDT) }, () => {
+                    binance.prices("LTCUSDT", (error, ticker) => {
+                      this.setState({ LTC: parseFloat(ticker.LTCUSDT) }, () => {
+                        binance.prices("LINKUSDT", (error, ticker) => {
+                          this.setState(
+                            { LINK: parseFloat(ticker.LINKUSDT) },
+                            () => {
+                              binance.prices("XMRUSDT", (error, ticker) => {
+                                this.setState(
+                                  { XMR: parseFloat(ticker.XMRUSDT) },
+                                  () => {
+                                    binance.prices(
+                                      "DOTUSDT",
+                                      (error, ticker) => {
+                                        this.setState(
+                                          {
+                                            DOT: parseFloat(ticker.DOTUSDT),
+                                          },
+                                          () => {
+                                            binance.prices(
+                                              "UNIUSDT",
+                                              (error, ticker) => {
+                                                this.setState(
+                                                  {
+                                                    UNI: parseFloat(
+                                                      ticker.UNIUSDT
+                                                    ),
+                                                  },
+                                                  () => {
+                                                    this.getWallet(
+                                                      this.props.wallet.id
+                                                    );
+                                                  }
+                                                );
+                                              }
+                                            );
+                                          }
+                                        );
+                                      }
+                                    );
+                                  }
+                                );
+                              });
+                            }
+                          );
+                        });
+                      });
+                    });
+                  });
+                });
+              });
             });
           });
         });
       });
     });
   };
-
   getWallet = (id) => {
     const pointerToThis = this;
     let newCount = this.state.xCount + 1;
-    this.setState(
-      {
-        xCount: newCount,
-      },
-      () => {
-        fetch(`http://localhost:3000/wallets/${id}`)
-          .then((res) => res.json())
-          .then((res) => {
-            let btcTotal = res.btc * this.state.BTC;
-            let ethTotal = res.eth * this.state.ETH;
-            let dogeTotal = res.doge * this.state.DOGE;
-            let currentBalance = res.cash + btcTotal + ethTotal + dogeTotal;
-            pointerToThis.setState(
-              {
-                Cash: res.cash,
-                BTCHolding: res.btc,
-                ETHHolding: res.eth,
-                DOGEHolding: res.doge,
-                stockChartXValues: [...this.state.stockChartXValues, newCount],
-                stockChartYValues: [
-                  ...this.state.stockChartYValues,
-                  currentBalance,
-                ],
-              },
-              () => {
-                this.setWallet(id, currentBalance);
-              }
-            );
-          });
-      }
-    );
+    let date = Date(Date.now());
+    let time = date.toString();
+    fetch(`http://localhost:3000/wallets/${id}`)
+      .then((res) => res.json())
+      .then((res) => {
+        let btcTotal = res.btc * this.state.BTC;
+        let ethTotal = res.eth * this.state.ETH;
+        let dogeTotal = res.doge * this.state.DOGE;
+        let xrpTotal = res.xrp * this.state.XRP;
+        let ltcTotal = res.ltc * this.state.LTC;
+        let linkTotal = res.link * this.state.LINK;
+        let xmrTotal = res.xmr * this.state.XMR;
+        let dotTotal = res.dot * this.state.DOT;
+        let uniTotal = res.uni * this.state.UNI;
+        let currentBalance =
+          res.cash +
+          btcTotal +
+          ethTotal +
+          dogeTotal +
+          xrpTotal +
+          ltcTotal +
+          linkTotal +
+          xmrTotal +
+          dotTotal +
+          uniTotal;
+        pointerToThis.setState(
+          {
+            Cash: res.cash,
+            BTCHolding: res.btc,
+            ETHHolding: res.eth,
+            DOGEHolding: res.doge,
+            XRPHolding: res.xrp,
+            LTCHolding: res.ltc,
+            LINKHolding: res.link,
+            XMRHolding: res.xmr,
+            DOTHolding: res.dot,
+            UNIHolding: res.uni,
+            stockChartXValues: [...this.state.stockChartXValues, time],
+            stockChartYValues: [
+              ...this.state.stockChartYValues,
+              currentBalance,
+            ],
+          },
+          () => {
+            this.setWallet(id, currentBalance);
+          }
+        );
+      });
   };
 
   setWallet = (id, newBalance) => {
@@ -313,12 +391,24 @@ class Wallet extends React.Component {
               "BTC": this.state.BTC,
               "ETH": this.state.ETH,
               "DOGE": this.state.DOGE,
+              "XRP": this.state.XRP,
+              "LTC": this.state.LTC,
+              "LINK": this.state.LINK,
+              "XMR": this.state.XMR,
+              "DOT": this.state.DOT,
+              "UNI": this.state.UNI,
             }}
             Cash={this.state.Cash}
             Holdings={{
               "BTC": this.state.BTCHolding,
               "ETH": this.state.ETHHolding,
               "DOGE": this.state.DOGEHolding,
+              "XRP": this.state.XRPHolding,
+              "LTC": this.state.LTCHolding,
+              "LINK": this.state.LINKHolding,
+              "XMR": this.state.XMRHolding,
+              "DOT": this.state.DOTHolding,
+              "UNI": this.state.UNIHolding,
             }}
             submitOrder={this.submitOrder}
           />
@@ -464,7 +554,24 @@ class Wallet extends React.Component {
               <h2 style={{ color: "white" }}>
                 {" "}
                 <img src={NewDoge} style={{ height: 50, width: 50 }} />
-                DOGE: {parseFloat(this.state.DOGE).toFixed(2)}
+                DOGE: {parseFloat(this.state.DOGE).toFixed(7)}
+              </h2>
+            </div>
+            <div
+              id="flex-item"
+              style={{
+                backgroundColor: "#1F1B24",
+                width: 300,
+                justifyContent: "center",
+                alignItems: "center",
+                marginLeft: "auto",
+                float: "left",
+              }}
+            >
+              <h2 style={{ color: "white" }}>
+                {" "}
+                <img src={NewDoge} style={{ height: 50, width: 50 }} />
+                XRP: {parseFloat(this.state.XRP).toFixed(5)}
               </h2>
             </div>
           </div>
