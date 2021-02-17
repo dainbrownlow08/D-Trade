@@ -53,7 +53,7 @@ class OrderForm extends React.Component {
           }}
         >
           <Form.Group>
-            <Form.Label>Quantity: </Form.Label>
+            <Form.Label style={{color: 'white'}}>Quantity: </Form.Label>
             <Form.Control
               onChange={(e) => this.onQuantityChange(e)}
               type="float"
@@ -81,6 +81,7 @@ class OrderForm extends React.Component {
           <Form.Label
             className="my-1 mr-2"
             htmlFor="inlineFormCustomSelectPref"
+            style={{color: 'white'}}
           >
             Symbol
           </Form.Label>
@@ -101,7 +102,7 @@ class OrderForm extends React.Component {
             <option value="DOT">DOT</option>
             <option value="UNI">UNI</option>
           </Form.Control>
-          <Form.Group>
+          <Form.Group style={{color: 'white'}}>
             <fieldset>
               <Form.Check
                 checked={this.state.type === "Buy"}

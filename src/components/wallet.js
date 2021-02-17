@@ -337,53 +337,6 @@ class Wallet extends React.Component {
 
   render() {
     return (
-      //   <div>
-      //     <div id="flex-container">
-      //   <div id="flex-item"style={{backgroundColor: '#1F1B24',  width: 300, justifyContent:'center', alignItems:'center', marginLeft: 'auto', float: 'left'}}>
-      //   <h2 style={{display: 'flex',  justifyContent:'center', alignItems:'center', color: 'white'}}><img src={Bitcoin} style={{height: 50, width:50}}/>BTC: {this.state.BTC}</h2>
-      //   </div>
-      //   <div id="flex-item" style={{backgroundColor: '#1F1B24',  justifyContent:'center', alignItems:'center', float: 'right', width: 350}}>
-      //   <h2 style={{display: 'flex',  justifyContent:'center', alignItems:'center', color: 'white'}}> <img src={NewDoge} style={{height: 50, width: 50}}/>DOGE: {this.state.DOGE}</h2>
-      //   </div>
-      //   <div id="flex-item" style={{ backgroundColor: '#1F1B24',  justifyContent:'center', alignItems:'center', marginLeft: 'auto', marginRight: 'auto', width: 300}}>
-      //   <h2 style={{display: 'flex',  justifyContent:'center', alignItems:'center', color: 'white'}}><img src={Ethereum} style={{height: 50, width: 50}}/>ETH: {this.state.ETH}</h2>
-      //   </div>
-      //   <div style={{backgroundColor: '#1F1B24',  justifyContent:'center', alignItems:'center', marginLeft: 'auto', marginRight: 'auto'}}>
-      //  </div>
-      //  <div style={{ backgroundColor: '#1F1B24',  width: 300, justifyContent:'center', alignItems:'center', marginLeft: 'auto', float: 'left'}}>
-      //  <h2 style={{display: 'flex',  justifyContent:'center', alignItems:'center', color: 'white', float: 'left'}}>Balance: {this.state.Balance}</h2>
-      // </div>
-      //   <div style={{margin: 'auto', backgroundColor: '#1F1B24',  justifyContent:'center', alignItems:'center', width:1000}}>
-      //   <Plot
-      //     data={[
-      //       {
-      //         x: this.state.stockChartXValues,
-      //         y: this.state.stockChartYValues,
-      //         type: "scatter",
-      //         mode: "lines+markers",
-      //         marker: { color: this.state.graphColor },
-      //       },
-      //     ]}
-      //     layout={{
-      //       width: 981,
-      //       height: 600,
-      //       title: "Your Balance",
-      //       paper_bgcolor: 'rgba(0,0,0,0)',
-      //       plot_bgcolor: 'rgba(0,0,0,0)',
-      //       xaxis: {
-      //         showgrid: false,
-      //         visible: false,
-      //       },
-      //       yaxis: {
-      //         showgrid: false,
-      //         showline: true,
-      //       },
-      //     }}
-      //   />
-      //   </div>
-      //   </div>
-      //   <footer style={{display: 'flex',  justifyContent:'center', alignItems:'center', color: 'white'}}>D-Trade by Dain Brownlow and Dustin Rothschild</footer>
-      // <div id="flex-item" style="background-color: rgb(31, 27, 36); width: 300px; justify-content: center; align-items: center; margin: auto;"><h1 style="color: white;">Investing</h1><h1 style="color: white;">$61070.11</h1><h5 style="color: green;">$17.19(0%)</h5></div>
       <div>
         {this.state.display ? (
           <OrderForm
@@ -434,6 +387,7 @@ class Wallet extends React.Component {
           <h1 style={{ color: "white" }}>
             ${parseFloat(this.state.Balance).toFixed(2)}
           </h1>
+          
           <h5 style={{ color: this.state.graphColor }}>
             {this.state.graphColor == "green" ? (
               <svg
@@ -459,6 +413,17 @@ class Wallet extends React.Component {
             ${this.state.gl}({this.state.pgl}%)
           </h5>
         </div>
+        <div style={{float: 'left', backgroundColor: "#1F1B24", alignItems: 'center', justifyContent: "center"}}>
+              <h4 style={{color: 'white'}}>Current Holdings: </h4>
+              <h4 style={{color: 'white'}}> <img src={Bitcoin} style={{ height: 50, width: 50 }} />BTC: {this.state.BTCHolding}</h4>
+              <h4 style={{color: 'white'}}> <img src={Ethereum} style={{ height: 50, width: 50 }} />ETH: {this.state.ETHHolding}</h4>
+              <h4 style={{color: 'white'}}> <img src={NewDoge} style={{ height: 50, width: 50 }} />DOGE: {this.state.DOGEHolding}</h4>
+            </div>
+            
+            <div style={{float: 'right', backgroundColor: '#1F1B24', alignItems: 'center', justifyContent: 'center'}}>
+              <h4 style={{color: 'white'}}>Orders:</h4>
+              <h4 style={{color: 'white'}}>{this.state.orders.map(order => order)}</h4>
+            </div>
         {this.state.stockChartXValues.length > 0 ? (
           <div
             div
