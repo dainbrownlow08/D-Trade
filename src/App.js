@@ -23,11 +23,12 @@ class App extends React.Component {
   handleLogin = (e) => {
     e.preventDefault();
     let username = e.target.username.value;
-    fetch(`http://localhost:3000/users/${username}`)
+    let password = e.target.password.value;
+    fetch(`http://localhost:3000/users/${username}-${password}`)
       .then((res) => res.json())
       .then((newWallet) => {
         newWallet === null
-          ? console.log("WRONG USERNAME")
+          ? console.log("INVALID LOGIN")
           : this.setState({ loggedIn: true, wallet: newWallet });
       });
   };
@@ -35,18 +36,20 @@ class App extends React.Component {
   handleRegister = (e) => {
     e.preventDefault();
     let username = e.target.username.value;
+    let password = e.target.password.value;
+    let data = { username: username, password: password };
     fetch("http://localhost:3000/users", {
       method: "POST",
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(username),
+      body: JSON.stringify(data),
     })
       .then((res) => res.json())
       .then((newWallet) => {
         newWallet === null
-          ? console.log("INVALID USERNAME")
+          ? console.log("INVALID LOGIN")
           : this.setState({ loggedIn: true, wallet: newWallet });
       });
   };

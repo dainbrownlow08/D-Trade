@@ -78,12 +78,11 @@ class Wallet extends React.Component {
                 stockChartXValues: [...this.state.stockChartXValues, newCount],
                 stockChartYValues: [
                   ...this.state.stockChartYValues,
-                  res.balance,
+                  currentBalance,
                 ],
               },
               () => {
                 this.setWallet(id, currentBalance);
-                this.handlePortfolioReturn();
               }
             );
           });
@@ -116,10 +115,13 @@ class Wallet extends React.Component {
         ) {
           newColor = "green";
         }
-        this.setState({
-          Balance: res.balance,
-          graphColor: newColor,
-        });
+        this.setState(
+          {
+            Balance: res.balance,
+            graphColor: newColor,
+          },
+          () => this.handlePortfolioReturn()
+        );
       });
   };
 
