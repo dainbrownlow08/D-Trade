@@ -4,6 +4,12 @@ import Table from "react-bootstrap/Table";
 import NewDoge from "../containers/NewDoge.png";
 import Ethereum from "../containers/Ethereum.png";
 import Bitcoin from "../containers/Bitcoin.png";
+import XRP from '../containers/XRP.png'
+import LTC from '../containers/LTC.png'
+import LINK from '../containers/LINK.png'
+import XMR from '../containers/XMR.png'
+import DOT from '../containers/DOT.png'
+import UNI from '../containers/UNI.png'
 // import { pub, priv } from "../keys.js";
 import OrderForm from "./OrderForm.js";
 import Alert from "react-bootstrap/Alert";
@@ -593,7 +599,7 @@ class Wallet extends React.Component {
               id="flex-item"
               style={{
                 backgroundColor: "#1F1B24",
-                width: 300,
+                width: 350,
                 justifyContent: "center",
                 alignItems: "center",
                 marginLeft: "auto",
@@ -619,8 +625,98 @@ class Wallet extends React.Component {
             >
               <h2 style={{ color: "white" }}>
                 {" "}
-                <img src={NewDoge} style={{ height: 50, width: 50 }} />
+                <img src={XRP} style={{ height: 50, width: 50 }} />
                 XRP: {parseFloat(this.state.XRP).toFixed(5)}
+              </h2>
+            </div>
+
+            <div
+              id="flex-item"
+              style={{
+                backgroundColor: "#1F1B24",
+                width: 300,
+                justifyContent: "center",
+                alignItems: "center",
+                marginLeft: "auto",
+                float: "left",
+              }}
+            >
+              <h2 style={{ color: "white" }}>
+                {" "}
+                <img src={LTC} style={{ height: 50, width: 50 }} />
+                LTC: {parseFloat(this.state.LTC).toFixed(5)}
+              </h2>
+            </div>
+
+            <div
+              id="flex-item"
+              style={{
+                backgroundColor: "#1F1B24",
+                width: 350,
+                justifyContent: "center",
+                alignItems: "center",
+                marginLeft: "auto",
+                float: "left",
+              }}
+            >
+              <h2 style={{ color: "white" }}>
+                {" "}
+                <img src={LINK} style={{ height: 50, width: 50 }} />
+                LINK: {parseFloat(this.state.LINK).toFixed(5)}
+              </h2>
+            </div>
+
+            <div
+              id="flex-item"
+              style={{
+                backgroundColor: "#1F1B24",
+                width: 350,
+                justifyContent: "center",
+                alignItems: "center",
+                marginLeft: "auto",
+                float: "left",
+              }}
+            >
+              <h2 style={{ color: "white" }}>
+                {" "}
+                <img src={XMR} style={{ height: 50, width: 50 }} />
+                XMR: {parseFloat(this.state.XMR).toFixed(5)}
+              </h2>
+            </div>
+
+            <div
+              id="flex-item"
+              style={{
+                backgroundColor: "#1F1B24",
+                width: 300,
+                justifyContent: "center",
+                alignItems: "center",
+                marginLeft: "auto",
+                float: "left",
+              }}
+            >
+              <h2 style={{ color: "white" }}>
+                {" "}
+                <img src={DOT} style={{ height: 50, width: 50 }} />
+                DOT: {parseFloat(this.state.DOT).toFixed(5)}
+              </h2>
+            </div>
+
+            <div
+              id="flex-item"
+              style={{
+                backgroundColor: "#1F1B24",
+                width: 300,
+                justifyContent: "center",
+                alignItems: "center",
+                marginLeft: "auto",
+                float: "left",
+              }}
+            >
+              <h2 style={{ color: "white" }}>
+                {" "}
+                <img src={UNI} style={{ height: 50, width: 50 }} />
+                UNI: {parseFloat(this.state.UNI).toFixed(5)}
               </h2>
             </div>
           </div>
