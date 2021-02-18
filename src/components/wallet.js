@@ -679,7 +679,11 @@ class Wallet extends React.Component {
                             <p className="Buy">{order.total}</p>
                           </Col>
                           <Col>
-                            <p className="Buy2">{order.quantity.toFixed(1)}</p>
+                            <p className="Buy2">
+                              {order.quantity > 1000
+                                ? `${order.quantity / 1000}k`
+                                : order.quantity}
+                            </p>
                           </Col>
                         </Row>
                       );
@@ -693,7 +697,11 @@ class Wallet extends React.Component {
                             <p className="Sell">{order.total}</p>
                           </Col>
                           <Col>
-                            <p className="Sell2">{order.quantity.toFixed(1)}</p>
+                            <p className="Sell2">
+                              {order.quantity > 1000
+                                ? `${order.quantity / 1000}k`
+                                : order.quantity}
+                            </p>
                           </Col>
                         </Row>
                       );
