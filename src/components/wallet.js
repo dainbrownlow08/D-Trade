@@ -318,7 +318,9 @@ class Wallet extends React.Component {
         let ourOrders = orders.filter(
           (o) => o.wallet_id == this.props.wallet.id
         );
-        ourOrders = ourOrders.slice(ourOrders.length - 10, ourOrders.length);
+        ourOrders = ourOrders
+          .slice(ourOrders.length - 10, ourOrders.length)
+          .reverse();
         this.setState({
           orders: ourOrders,
         });
@@ -362,13 +364,13 @@ class Wallet extends React.Component {
 
   submitOrder = (e, o) => {
     e.preventDefault();
-    this.handleOrder(o);
     if (o.type == "Buy") {
       if (o.total > this.state.Cash) {
         this.setState({
           broke: true,
         });
       } else {
+        this.handleOrder(o);
         this.handleComplete();
         let quantity = o.quantity;
         let symbol = o.symbol;
@@ -395,6 +397,7 @@ class Wallet extends React.Component {
           broke: true,
         });
       } else {
+        this.handleOrder(o);
         this.handleComplete();
         let quantity = o.quantity;
         let symbol = o.symbol;

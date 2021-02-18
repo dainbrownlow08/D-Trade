@@ -39,6 +39,10 @@ class Register extends React.Component {
     };
   };
 
+  componentDidMount() {
+    this.props.handleWrong();
+  }
+
   render() {
     return (
       <div>
@@ -48,7 +52,9 @@ class Register extends React.Component {
               this.props.handleRegister(e, this.createLogin());
             }}
           >
-            <Form.Label>Enter New Username</Form.Label>
+            <Form.Label style={{ color: "#C0C0C0" }}>
+              Enter New Username
+            </Form.Label>
             <Form.Control
               onChange={(e) => this.onUsernameChange(e)}
               type="string"
@@ -59,7 +65,8 @@ class Register extends React.Component {
                 color: "#C0C0C0",
               }}
             />
-            <Form.Label>Password</Form.Label>
+            <br />
+            <Form.Label style={{ color: "#C0C0C0" }}>Password</Form.Label>
             <Form.Control
               onChange={(e) => this.onPasswordChange(e)}
               type="string"

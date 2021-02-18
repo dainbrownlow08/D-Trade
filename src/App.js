@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import ReactDOM from "react-dom";
+import { Alert, Container } from "react-bootstrap";
 import {
   BrowserRouter as Router,
   Route,
@@ -15,11 +15,13 @@ import Wallet from "./components/wallet.js";
 import Orders from "./components/Orders.js";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Fragment } from "react";
 
 class App extends React.Component {
   state = {
     loggedIn: null,
     wallet: null,
+    wrong: false,
   };
 
   handleLogin = (e, o) => {
@@ -30,8 +32,8 @@ class App extends React.Component {
       .then((res) => res.json())
       .then((newWallet) => {
         newWallet === null
-          ? console.log("INVALID LOGIN")
-          : this.setState({ loggedIn: true, wallet: newWallet });
+          ? this.setState({ wrong: true })
+          : this.setState({ loggedIn: true, wallet: newWallet, wrong: false });
       });
   };
 
@@ -51,8 +53,8 @@ class App extends React.Component {
       .then((res) => res.json())
       .then((newWallet) => {
         newWallet === null
-          ? console.log("INVALID LOGIN")
-          : this.setState({ loggedIn: true, wallet: newWallet });
+          ? this.setState({ wrong: true })
+          : this.setState({ loggedIn: true, wallet: newWallet, wrong: false });
       });
   };
 
@@ -63,6 +65,16 @@ class App extends React.Component {
     });
   };
 
+  handleWrong = () => {
+    this.setState({
+      wrong: false,
+    });
+  };
+
+  componentDidMount() {
+    document.body.style.background = "#181818";
+  }
+
   render() {
     return (
       <Router>
@@ -71,19 +83,44 @@ class App extends React.Component {
             loggedIn={this.state.loggedIn}
             handleLogout={this.handleLogout}
           />
+          <br />
           <Switch>
             <Route exact path="/login">
               {this.state.loggedIn === true ? (
                 <Redirect to="/wallet" />
               ) : (
-                <Login handleLogin={this.handleLogin} />
+                <Fragment>
+                  <Login
+                    handleLogin={this.handleLogin}
+                    handleWrong={this.handleWrong}
+                  />
+                  <br />
+                  <br />
+                  <Container>
+                    {this.state.wrong ? (
+                      <Alert variant={"danger"}>Invalid Login</Alert>
+                    ) : null}
+                  </Container>
+                </Fragment>
               )}
             </Route>
             <Route exact path="/register">
               {this.state.loggedIn === true ? (
                 <Redirect to="/wallet" />
               ) : (
-                <Register handleRegister={this.handleRegister} />
+                <Fragment>
+                  <Register
+                    handleRegister={this.handleRegister}
+                    handleWrong={this.handleWrong}
+                  />
+                  <br />
+                  <br />
+                  <Container>
+                    {this.state.wrong ? (
+                      <Alert variant={"danger"}>Invalid Login</Alert>
+                    ) : null}
+                  </Container>
+                </Fragment>
               )}
             </Route>
             <Route exact path="/wallet">
