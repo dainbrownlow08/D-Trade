@@ -1,18 +1,8 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Plot from "react-plotly.js";
-import Table from "react-bootstrap/Table";
-import NewDoge from "../containers/NewDoge.png";
-import Ethereum from "../containers/Ethereum.png";
-import Bitcoin from "../containers/Bitcoin.png";
-import XRP from '../containers/XRP.png'
-import LTC from '../containers/LTC.png'
-import LINK from '../containers/LINK.png'
-import XMR from '../containers/XMR.png'
-import DOT from '../containers/DOT.png'
-import UNI from '../containers/UNI.png'
 // import { pub, priv } from "../keys.js";
 import OrderForm from "./OrderForm.js";
-import { Container, Form, Row, Col, Button, Alert } from "react-bootstrap";
+import { Container, Row, Col, Alert } from "react-bootstrap";
 const Binance = require("node-binance-api");
 
 class Wallet extends React.Component {
@@ -41,8 +31,7 @@ class Wallet extends React.Component {
     xCount: 0,
     stockChartYValues: [],
     orders: [],
-    graphColor: "green",
-    display: false,
+    graphColor: "seagreen",
     broke: false,
     gl: 0,
     pgl: 0,
@@ -184,7 +173,7 @@ class Wallet extends React.Component {
         let ourOrders = orders.filter(
           (o) => o.wallet_id == this.props.wallet.id
         );
-        ourOrders = ourOrders.slice(0, 11);
+        ourOrders = ourOrders.slice(ourOrders.length - 10, ourOrders.length);
         this.setState({
           orders: ourOrders,
         });
@@ -204,17 +193,17 @@ class Wallet extends React.Component {
           this.state.stockChartYValues[
             this.state.stockChartYValues.length - 1
           ] < this.state.stockChartYValues[0] &&
-          this.state.graphColor !== "red"
+          this.state.graphColor !== "indianred"
         ) {
-          newColor = "red";
+          newColor = "indianred";
         }
         if (
           this.state.stockChartYValues[
             this.state.stockChartYValues.length - 1
           ] > this.state.stockChartYValues[0] &&
-          this.state.graphColor !== "green"
+          this.state.graphColor !== "seagreen"
         ) {
-          newColor = "green";
+          newColor = "seagreen";
         }
         this.setState(
           {
@@ -317,18 +306,9 @@ class Wallet extends React.Component {
       });
   };
 
-  toggleForm = () => {
-    let newDisplay = !this.state.display;
-    this.setState({
-      display: newDisplay,
-      broke: false,
-    });
-  };
-
   handleComplete = () => {
     this.setState({
       broke: false,
-      display: false,
     });
   };
 
@@ -368,7 +348,7 @@ class Wallet extends React.Component {
     this.prices();
     this.getOrders();
     this.interval = setInterval(this.prices, 5000);
-    document.body.style.background = "#121212";
+    document.body.style.background = "#181818";
   }
 
   componentWillUnmount() {
@@ -376,385 +356,364 @@ class Wallet extends React.Component {
   }
 
   // RENDER
-
   render() {
     return (
-      <div>
-        {this.state.display ? (
-          <OrderForm
-            prices={{
-              "BTC": this.state.BTC,
-              "ETH": this.state.ETH,
-              "DOGE": this.state.DOGE,
-              "XRP": this.state.XRP,
-              "LTC": this.state.LTC,
-              "LINK": this.state.LINK,
-              "XMR": this.state.XMR,
-              "DOT": this.state.DOT,
-              "UNI": this.state.UNI,
-            }}
-            Cash={this.state.Cash}
-            Holdings={{
-              "BTC": this.state.BTCHolding,
-              "ETH": this.state.ETHHolding,
-              "DOGE": this.state.DOGEHolding,
-              "XRP": this.state.XRPHolding,
-              "LTC": this.state.LTCHolding,
-              "LINK": this.state.LINKHolding,
-              "XMR": this.state.XMRHolding,
-              "DOT": this.state.DOTHolding,
-              "UNI": this.state.UNIHolding,
-            }}
-            submitOrder={this.submitOrder}
-          />
-        ) : null}
-        {this.state.broke ? (
-          <Alert variant={"warning"}>
-            <p>Invalid transaction. Please check your balances.</p>
-          </Alert>
-        ) : null}
-        <Button variant="dark" onClick={this.toggleForm}>
-          Create Order
-        </Button>
-        <br></br>
-        <div
-          id="flex-item"
-          style={{
-            backgroundColor: "#121212",
-            width: 300,
-            justifyContent: "center",
-            alignItems: "center",
-            margin: "auto",
-          }}
-        >
-          <h1 style={{ color: "white" }}>Investing</h1>
-          <h1 style={{ color: "white" }}>
-            ${parseFloat(this.state.Balance).toFixed(2)}
-          </h1>
-
-          <h5 style={{ color: this.state.graphColor }}>
-            {this.state.graphColor == "green" ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="30"
-                height="30"
-                fill={this.state.graphColor}
-                viewBox="0 0 16 16"
-              >
-                <path d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z" />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="30"
-                height="30"
-                fill={this.state.graphColor}
-                viewBox="0 0 16 16"
-              >
-                <path d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z" />
-              </svg>
-            )}
-            ${this.state.gl}({this.state.pgl}%)
-          </h5>
-        </div>
-        <div
-          style={{
-            float: "left",
-            backgroundColor: "#1F1B24",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <h4 style={{ color: "white" }}>Current Holdings: </h4>
-          <h4 style={{ color: "white" }}>
-            {" "}
-            <img src={Bitcoin} style={{ height: 50, width: 50 }} />
-            BTC: {this.state.BTCHolding}
-          </h4>
-          <h4 style={{ color: "white" }}>
-            {" "}
-            <img src={Ethereum} style={{ height: 50, width: 50 }} />
-            ETH: {this.state.ETHHolding}
-          </h4>
-          <h4 style={{ color: "white" }}>
-            {" "}
-            <img src={NewDoge} style={{ height: 50, width: 50 }} />
-            DOGE: {this.state.DOGEHolding}
-          </h4>
-          <h4 style={{ color: "white" }}>
-            {" "}
-            <img src={XRP} style={{ height: 50, width: 50 }} />
-            XRP: {this.state.XRPHolding}
-          </h4>
-          <h4 style={{ color: "white" }}>
-            {" "}
-            <img src={LTC} style={{ height: 50, width: 50 }} />
-            LTC: {this.state.LTCHolding}
-          </h4>
-          <h4 style={{ color: "white" }}>
-            {" "}
-            <img src={LINK} style={{ height: 50, width: 50 }} />
-            LINK: {this.state.LINKHolding}
-          </h4>
-          <h4 style={{ color: "white" }}>
-            {" "}
-            <img src={XMR} style={{ height: 50, width: 50 }} />
-            XMR: {this.state.XMRHolding}
-          </h4>
-          <h4 style={{ color: "white" }}>
-            {" "}
-            <img src={DOT} style={{ height: 50, width: 50 }} />
-            DOT: {this.state.DOTHolding}
-          </h4>
-          <h4 style={{ color: "white" }}>
-            {" "}
-            <img src={UNI} style={{ height: 50, width: 50 }} />
-            UNI: {this.state.UNIHolding}
-          </h4>
-        </div>
-        <div
-          style={{
-            float: "right",
-            backgroundColor: "#1F1B24",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <h4 style={{ color: "white" }}>Orders:</h4>
-          <Table variant="dark">
-            <thead>
-              <tr>
-                <th>Type</th>
-                <th>Ticker</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.orders.map((order) => {
-                return [
-                  <tr>
-                    <td>{order.orderType}</td>
-                    <td>{order.ticker}</td>
-                    <td>{order.quantity}</td>
-                    <td>{order.total}</td>
-                    <td>{order.created_at}</td>
-                  </tr>,
-                ];
-              })}
-            </tbody>
-          </Table>
-        </div>
-        {this.state.stockChartXValues.length > 0 ? (
-          <div
-            div
-            style={{
-              margin: "auto",
-              backgroundColor: "#1F1B24",
-              justifyContent: "center",
-              alignItems: "center",
-              width: 1000,
-            }}
-          >
-            <Plot
-              data={[
-                {
-                  x: this.state.stockChartXValues,
-                  y: this.state.stockChartYValues,
-                  type: "scatter",
-                  mode: "lines+markers",
-                  marker: { color: this.state.graphColor, size: 2 },
-                },
-              ]}
-              layout={{
-                shapes: [
-                  // {
-                  //   type: "line",
-                  //   x0: this.stockChartXValues[0],
-                  //   y0: this.stockChartYValues[0],
-                  //   x1: this.stockChartXValues[this.stockChartXValues.length - 1],
-                  //   y1: this.stockChartYValues[0],
-                  // },
-                ],
-                width: 981,
-                height: 600,
-                paper_bgcolor: "rgba(0,0,0,0)",
-                plot_bgcolor: "rgba(0,0,0,0)",
-                xaxis: {
-                  showgrid: false,
-                  visible: false,
-                },
-                yaxis: {
-                  showgrid: false,
-                  showline: true,
-                },
-              }}
-            />
-            <div
-              id="flex-item"
-              style={{
-                backgroundColor: "#1F1B24",
-                width: 300,
-                justifyContent: "center",
-                alignItems: "center",
-                marginLeft: "auto",
-                float: "left",
-              }}
-            >
-              <h2 style={{ color: "white" }}>
-                {" "}
-                <img src={Bitcoin} style={{ height: 50, width: 50 }} />
-                BTC: {parseFloat(this.state.BTC).toFixed(2)}
-              </h2>
-            </div>
-            <div
-              id="flex-item"
-              style={{
-                backgroundColor: "#1F1B24",
-                width: 300,
-                justifyContent: "center",
-                alignItems: "center",
-                marginLeft: "auto",
-                float: "left",
-              }}
-            >
-              <h2 style={{ color: "white" }}>
-                {" "}
-                <img
-                  src={Ethereum}
-                  style={{ height: 50, width: 50 }}
-                /> ETH: {parseFloat(this.state.ETH).toFixed(2)}
-              </h2>
-            </div>
-            <div
-              id="flex-item"
-              style={{
-                backgroundColor: "#1F1B24",
-                width: 350,
-                justifyContent: "center",
-                alignItems: "center",
-                marginLeft: "auto",
-                float: "left",
-              }}
-            >
-              <h2 style={{ color: "white" }}>
-                {" "}
-                <img src={NewDoge} style={{ height: 50, width: 50 }} />
-                DOGE: {parseFloat(this.state.DOGE).toFixed(7)}
-              </h2>
-            </div>
-            <div
-              id="flex-item"
-              style={{
-                backgroundColor: "#1F1B24",
-                width: 300,
-                justifyContent: "center",
-                alignItems: "center",
-                marginLeft: "auto",
-                float: "left",
-              }}
-            >
-              <h2 style={{ color: "white" }}>
-                {" "}
-                <img src={XRP} style={{ height: 50, width: 50 }} />
-                XRP: {parseFloat(this.state.XRP).toFixed(5)}
-              </h2>
-            </div>
-
-            <div
-              id="flex-item"
-              style={{
-                backgroundColor: "#1F1B24",
-                width: 300,
-                justifyContent: "center",
-                alignItems: "center",
-                marginLeft: "auto",
-                float: "left",
-              }}
-            >
-              <h2 style={{ color: "white" }}>
-                {" "}
-                <img src={LTC} style={{ height: 50, width: 50 }} />
-                LTC: {parseFloat(this.state.LTC).toFixed(5)}
-              </h2>
-            </div>
-
-            <div
-              id="flex-item"
-              style={{
-                backgroundColor: "#1F1B24",
-                width: 350,
-                justifyContent: "center",
-                alignItems: "center",
-                marginLeft: "auto",
-                float: "left",
-              }}
-            >
-              <h2 style={{ color: "white" }}>
-                {" "}
-                <img src={LINK} style={{ height: 50, width: 50 }} />
-                LINK: {parseFloat(this.state.LINK).toFixed(5)}
-              </h2>
-            </div>
-
-            <div
-              id="flex-item"
-              style={{
-                backgroundColor: "#1F1B24",
-                width: 350,
-                justifyContent: "center",
-                alignItems: "center",
-                marginLeft: "auto",
-                float: "left",
-              }}
-            >
-              <h2 style={{ color: "white" }}>
-                {" "}
-                <img src={XMR} style={{ height: 50, width: 50 }} />
-                XMR: {parseFloat(this.state.XMR).toFixed(5)}
-              </h2>
-            </div>
-
-            <div
-              id="flex-item"
-              style={{
-                backgroundColor: "#1F1B24",
-                width: 300,
-                justifyContent: "center",
-                alignItems: "center",
-                marginLeft: "auto",
-                float: "left",
-              }}
-            >
-              <h2 style={{ color: "white" }}>
-                {" "}
-                <img src={DOT} style={{ height: 50, width: 50 }} />
-                DOT: {parseFloat(this.state.DOT).toFixed(5)}
-              </h2>
-            </div>
-
-            <div
-              id="flex-item"
-              style={{
-                backgroundColor: "#1F1B24",
-                width: 300,
-                justifyContent: "center",
-                alignItems: "center",
-                marginLeft: "auto",
-                float: "left",
-              }}
-            >
-              <h2 style={{ color: "white" }}>
-                {" "}
-                <img src={UNI} style={{ height: 50, width: 50 }} />
-                UNI: {parseFloat(this.state.UNI).toFixed(5)}
-              </h2>
-            </div>
-          </div>
-        ) : null}
-        <br></br>
-      </div>
+      <Fragment>
+        <br />
+        <Container>
+          <Row>
+            <Col xs={2}>
+              <Row>
+                <h4 id="wallet">Wallet</h4>
+                <h9 className="data-top">/ Balance</h9>
+              </Row>
+              <Row>
+                <div className="holding">
+                  <Row>
+                    <Col>
+                      <div className="holding-flag">
+                        <h6 className="holding-top">Symbol</h6>
+                      </div>
+                    </Col>
+                    <Col></Col>
+                  </Row>
+                  <div className="symbol-div">
+                    <Row>
+                      <Col xs={5}>
+                        <p className="symbol-bold">BTC</p>
+                      </Col>
+                      <Col>
+                        <p className="symbol">
+                          {this.state.BTCHolding.toFixed(1)}
+                        </p>
+                      </Col>
+                    </Row>
+                  </div>
+                  <div className="symbol-div">
+                    <Row>
+                      <Col xs={5}>
+                        <p className="symbol-bold">ETH</p>
+                      </Col>
+                      <Col>
+                        <p className="symbol">
+                          {this.state.ETHHolding.toFixed(1)}
+                        </p>
+                      </Col>
+                    </Row>
+                  </div>
+                  <div className="symbol-div">
+                    <Row>
+                      <Col xs={5}>
+                        <p className="symbol-bold">LTC</p>
+                      </Col>
+                      <Col>
+                        <p className="symbol">
+                          {this.state.LTCHolding.toFixed(1)}
+                        </p>
+                      </Col>
+                    </Row>
+                  </div>
+                  <div className="symbol-div">
+                    <Row>
+                      <Col xs={5}>
+                        <p className="symbol-bold">XMR</p>
+                      </Col>
+                      <Col>
+                        <p className="symbol">
+                          {this.state.XMRHolding.toFixed(1)}
+                        </p>
+                      </Col>
+                    </Row>
+                  </div>
+                  <div className="symbol-div">
+                    <Row>
+                      <Col xs={5}>
+                        <p className="symbol-bold">DOGE</p>
+                      </Col>
+                      <Col>
+                        <p className="symbol">
+                          {this.state.DOGEHolding.toFixed(1)}
+                        </p>
+                      </Col>
+                    </Row>
+                  </div>
+                  <div className="symbol-div">
+                    <Row>
+                      <Col xs={5}>
+                        <p className="symbol-bold">LINK</p>
+                      </Col>
+                      <Col>
+                        <p className="symbol">
+                          {this.state.LINKHolding.toFixed(1)}
+                        </p>
+                      </Col>
+                    </Row>
+                  </div>
+                  <div className="symbol-div">
+                    <Row>
+                      <Col xs={5}>
+                        <p className="symbol-bold">XRP</p>
+                      </Col>
+                      <Col>
+                        <p className="symbol">
+                          {this.state.XRPHolding.toFixed(1)}
+                        </p>
+                      </Col>
+                    </Row>
+                  </div>
+                  <div className="symbol-div">
+                    <Row>
+                      <Col xs={5}>
+                        <p className="symbol-bold">DOT</p>
+                      </Col>
+                      <Col>
+                        <p className="symbol">
+                          {this.state.DOTHolding.toFixed(1)}
+                        </p>
+                      </Col>
+                    </Row>
+                  </div>
+                  <div className="symbol-div">
+                    <Row>
+                      <Col xs={5}>
+                        <p className="symbol-bold">UNI</p>
+                      </Col>
+                      <Col>
+                        <p className="symbol">
+                          {this.state.UNIHolding.toFixed(1)}
+                        </p>
+                      </Col>
+                    </Row>
+                  </div>
+                </div>
+              </Row>
+            </Col>
+            <Col>
+              <Row>
+                <Col xs={2}>
+                  <h5 id="balance">
+                    ${parseFloat(this.state.Balance).toFixed(2)}
+                  </h5>
+                </Col>
+                <Col>
+                  <h7 style={{ color: this.state.graphColor }}>
+                    {this.state.graphColor == "seagreen" ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="30"
+                        height="30"
+                        fill={this.state.graphColor}
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z" />
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="30"
+                        height="30"
+                        fill={this.state.graphColor}
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z" />
+                      </svg>
+                    )}
+                    ${this.state.gl}({this.state.pgl}%)
+                  </h7>
+                </Col>
+              </Row>
+              <Row>
+                <div className="chart">
+                  {this.state.stockChartXValues.length > 0 ? (
+                    <Plot
+                      data={[
+                        {
+                          x: this.state.stockChartXValues,
+                          y: this.state.stockChartYValues,
+                          type: "scatter",
+                          mode: "lines+markers",
+                          marker: { color: this.state.graphColor, size: 2 },
+                        },
+                      ]}
+                      layout={{
+                        width: 736,
+                        height: 450,
+                        paper_bgcolor: "rgba(0,0,0,0)",
+                        plot_bgcolor: "rgba(0,0,0,0)",
+                        xaxis: {
+                          showgrid: false,
+                          visible: false,
+                        },
+                        yaxis: {
+                          showgrid: false,
+                          showline: true,
+                        },
+                      }}
+                    />
+                  ) : null}
+                </div>
+              </Row>
+              <br />
+              <Row>
+                <div class="order">
+                  <div class="order-pad">
+                    <OrderForm
+                      prices={{
+                        "BTC": this.state.BTC,
+                        "ETH": this.state.ETH,
+                        "DOGE": this.state.DOGE,
+                        "XRP": this.state.XRP,
+                        "LTC": this.state.LTC,
+                        "LINK": this.state.LINK,
+                        "XMR": this.state.XMR,
+                        "DOT": this.state.DOT,
+                        "UNI": this.state.UNI,
+                      }}
+                      Cash={this.state.Cash}
+                      Holdings={{
+                        "BTC": this.state.BTCHolding,
+                        "ETH": this.state.ETHHolding,
+                        "DOGE": this.state.DOGEHolding,
+                        "XRP": this.state.XRPHolding,
+                        "LTC": this.state.LTCHolding,
+                        "LINK": this.state.LINKHolding,
+                        "XMR": this.state.XMRHolding,
+                        "DOT": this.state.DOTHolding,
+                        "UNI": this.state.UNIHolding,
+                      }}
+                      submitOrder={this.submitOrder}
+                    />
+                  </div>
+                </div>
+              </Row>
+            </Col>
+            <Col style={{ padding: "28px" }}>
+              <div>
+                <h8 className="right-title">Exchange</h8>
+                <div className="market">
+                  <Row>
+                    <Col>
+                      <p className="ticker">BTC/USD</p>
+                    </Col>
+                    <Col>
+                      <p className="price">{this.state.BTC}</p>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <p className="ticker">ETH/USD</p>
+                    </Col>
+                    <Col>
+                      <p className="price">{this.state.ETH}</p>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <p className="ticker">LTC/USD</p>
+                    </Col>
+                    <Col>
+                      <p className="price">{this.state.LTC}</p>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <p className="ticker">XMR/USD</p>
+                    </Col>
+                    <Col>
+                      <p className="price">{this.state.XMR}</p>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <p className="ticker">DOGE/USD</p>
+                    </Col>
+                    <Col>
+                      <p className="price">{this.state.DOGE.toFixed(5)}</p>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <p className="ticker">LINK/USD</p>
+                    </Col>
+                    <Col>
+                      <p className="price">{this.state.LINK}</p>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <p className="ticker">XRP/USD</p>
+                    </Col>
+                    <Col>
+                      <p className="price">{this.state.XRP}</p>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <p className="ticker">DOT/USD</p>
+                    </Col>
+                    <Col>
+                      <p className="price">{this.state.DOT}</p>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <p className="ticker">UNI/USD</p>
+                    </Col>
+                    <Col>
+                      <p className="price">{this.state.UNI}</p>
+                    </Col>
+                  </Row>
+                </div>
+              </div>
+              <div id="past-orders">
+                <h8 className="right-title">Trade History</h8>
+                <div className="history">
+                  {this.state.orders.map((order) => {
+                    if (order.orderType == "Buy") {
+                      return (
+                        <Row>
+                          <Col xs={3}>
+                            <p className="Buy2">{order.ticker}</p>
+                          </Col>
+                          <Col xs={4}>
+                            <p className="Buy">{order.total}</p>
+                          </Col>
+                          <Col>
+                            <p className="Buy2">{order.quantity.toFixed(1)}</p>
+                          </Col>
+                        </Row>
+                      );
+                    } else {
+                      return (
+                        <Row>
+                          <Col xs={3}>
+                            <p className="Sell2">{order.ticker}</p>
+                          </Col>
+                          <Col xs={4}>
+                            <p className="Sell">{order.total}</p>
+                          </Col>
+                          <Col>
+                            <p className="Sell2">{order.quantity.toFixed(1)}</p>
+                          </Col>
+                        </Row>
+                      );
+                    }
+                  })}
+                </div>
+              </div>
+            </Col>
+          </Row>
+          {this.state.broke ? (
+            <Container>
+              <Alert variant={"warning"}>
+                <p>Invalid transaction. Please check your balances.</p>
+              </Alert>
+            </Container>
+          ) : null}
+        </Container>
+        <br />
+        <br />
+      </Fragment>
     );
   }
 }

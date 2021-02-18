@@ -53,25 +53,30 @@ class OrderForm extends React.Component {
           }}
         >
           <Form.Group>
-            <Form.Label style={{color: 'white'}}>Quantity: </Form.Label>
+            <Form.Label style={{ color: "#C0C0C0" }}>Quantity </Form.Label>
             <Form.Control
               onChange={(e) => this.onQuantityChange(e)}
               type="float"
               placeholder="0"
+              style={{
+                backgroundColor: "#181818",
+                borderColor: "#333333",
+                color: "#C0C0C0",
+              }}
             />
-            <Form.Text className="text-muted">
+            <Form.Text style={{ color: "#a9a9a9" }}>
               Please enter the quantity.
             </Form.Text>
             {this.state.type == "Buy" ? (
-              <Form.Text className="text-muted">
-                Cash Available: $ {parseFloat(this.props.Cash).toFixed(2)}
+              <Form.Text style={{ color: "#a9a9a9" }}>
+                Buying Power: ${parseFloat(this.props.Cash).toFixed(2)}
               </Form.Text>
             ) : (
-              <Form.Text className="text-muted">
+              <Form.Text style={{ color: "#a9a9a9" }}>
                 Holding Quantity: {this.props.Holdings[this.state.symbol]}
               </Form.Text>
             )}
-            <Form.Text className="text-muted">
+            <Form.Text style={{ color: "#a9a9a9" }}>
               Total: $
               {parseFloat(
                 this.props.prices[this.state.symbol] * this.state.quantity
@@ -81,7 +86,7 @@ class OrderForm extends React.Component {
           <Form.Label
             className="my-1 mr-2"
             htmlFor="inlineFormCustomSelectPref"
-            style={{color: 'white'}}
+            style={{ color: "#C0C0C0" }}
           >
             Symbol
           </Form.Label>
@@ -91,6 +96,11 @@ class OrderForm extends React.Component {
             className="my-1 mr-sm-2"
             id="inlineFormCustomSelectPref"
             custom
+            style={{
+              backgroundColor: "#181818",
+              borderColor: "#333333",
+              color: "#C0C0C0",
+            }}
           >
             <option value="BTC">BTC</option>
             <option value="ETH">ETH</option>
@@ -102,7 +112,7 @@ class OrderForm extends React.Component {
             <option value="DOT">DOT</option>
             <option value="UNI">UNI</option>
           </Form.Control>
-          <Form.Group style={{color: 'white'}}>
+          <Form.Group style={{ color: "white" }}>
             <fieldset>
               <Form.Check
                 checked={this.state.type === "Buy"}
@@ -120,7 +130,7 @@ class OrderForm extends React.Component {
               />
             </fieldset>
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button variant="dark" type="submit">
             Submit
           </Button>
         </Form>

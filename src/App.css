@@ -36,3 +36,135 @@
     transform: rotate(360deg);
   }
 }
+
+.chart {
+  outline: 1px solid #333333;
+}
+
+.symbol {
+  color: #c0c0c0;
+  padding-left: 15px;
+  font-size: x-small;
+}
+
+.symbol-div {
+  padding-top: 6px;
+}
+
+.holding-top {
+  padding-left: 10px;
+  padding-top: 6px;
+  color: #a9a9a9;
+}
+
+.holding-flag {
+  background-color: #242424;
+  width: 140px;
+  height: 30px;
+}
+
+.order {
+  outline: 1px solid #333333;
+  background-color: #242424;
+  width: 736px;
+  height: 360px;
+}
+
+.holding {
+  outline: 1px solid #333333;
+  width: 140px;
+  height: 350px;
+}
+
+.order-pad {
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
+
+.data-top {
+  color: #a9a9a9;
+}
+
+#balance {
+  color: #c0c0c0;
+}
+
+#wallet {
+  color: #c0c0c0;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.market {
+  outline: 1px solid #333333;
+  width: 157px;
+  height: 350px;
+}
+
+#past-orders {
+  padding-top: 20px;
+}
+
+.ticker {
+  color: #c0c0c0;
+  padding-left: 10px;
+  font-size: x-small;
+  padding-top: 9px;
+  font-weight: bold;
+}
+
+.symbol-bold {
+  color: #c0c0c0;
+  padding-left: 15px;
+  font-size: x-small;
+  font-weight: bold;
+}
+
+.price {
+  color: #c0c0c0;
+  padding-top: 9px;
+  font-size: x-small;
+}
+
+.right-title {
+  color: #c0c0c0;
+  font-weight: bold;
+}
+
+.history {
+  outline: 1px solid #333333;
+  width: 157px;
+  height: 390px;
+}
+
+.Buy {
+  color: seagreen;
+  padding-left: 6px;
+  padding-top: 9px;
+  font-size: x-small;
+  font-weight: bold;
+}
+
+.Buy2 {
+  color: #c0c0c0;
+  padding-top: 9px;
+  padding-left: 6px;
+  font-size: x-small;
+}
+
+.Sell {
+  color: indianred;
+  padding-left: 6px;
+  padding-top: 9px;
+  font-size: x-small;
+  font-weight: bold;
+}
+
+.Sell2 {
+  color: #c0c0c0;
+  padding-top: 9px;
+  padding-left: 6px;
+  font-size: x-small;
+}
