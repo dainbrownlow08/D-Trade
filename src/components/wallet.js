@@ -1,14 +1,12 @@
-import { redraw } from "plotly.js";
 import React from "react";
 import Plot from "react-plotly.js";
+import Table from "react-bootstrap/Table";
 import NewDoge from "../containers/NewDoge.png";
 import Ethereum from "../containers/Ethereum.png";
 import Bitcoin from "../containers/Bitcoin.png";
-import style from "../containers/style.css";
 // import { pub, priv } from "../keys.js";
 import OrderForm from "./OrderForm.js";
 import Alert from "react-bootstrap/Alert";
-// import { pub, priv } from "../keys.js";
 const Binance = require("node-binance-api");
 
 class Wallet extends React.Component {
@@ -43,6 +41,8 @@ class Wallet extends React.Component {
     gl: 0,
     pgl: 0,
   };
+
+  // API PRICES
 
   prices = () => {
     const binance = new Binance().options({
@@ -115,6 +115,9 @@ class Wallet extends React.Component {
       });
     });
   };
+
+  // LIFECYCLE
+
   getWallet = (id) => {
     const pointerToThis = this;
     let newCount = this.state.xCount + 1;
@@ -165,6 +168,20 @@ class Wallet extends React.Component {
             this.setWallet(id, currentBalance);
           }
         );
+      });
+  };
+
+  getOrders = () => {
+    fetch("http://localhost:3000/orders")
+      .then((res) => res.json())
+      .then((orders) => {
+        let ourOrders = orders.filter(
+          (o) => o.wallet_id == this.props.wallet.id
+        );
+        ourOrders = ourOrders.slice(0, 11);
+        this.setState({
+          orders: ourOrders,
+        });
       });
   };
 
@@ -260,6 +277,8 @@ class Wallet extends React.Component {
     }
   };
 
+  // HANDLERS
+
   handleOrder = (o) => {
     let data = {
       ticker: o.symbol,
@@ -277,18 +296,20 @@ class Wallet extends React.Component {
       body: JSON.stringify(data),
     })
       .then((res) => res.json())
-      .then(console.log);
+      .then((order) => {
+        console.log(order);
+        let newOrders = this.state.orders;
+        if (newOrders.length == 10) {
+          newOrders.unshift(order);
+          newOrders.pop();
+        } else {
+          newOrders.unshift(order);
+        }
+        this.setState({
+          orders: newOrders,
+        });
+      });
   };
-
-  componentDidMount() {
-    this.prices();
-    this.interval = setInterval(this.prices, 5000);
-    document.body.style.background = "#121212";
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
 
   toggleForm = () => {
     let newDisplay = !this.state.display;
@@ -334,6 +355,21 @@ class Wallet extends React.Component {
       }
     }
   };
+
+  // MOUNTING
+
+  componentDidMount() {
+    this.prices();
+    this.getOrders();
+    this.interval = setInterval(this.prices, 5000);
+    document.body.style.background = "#121212";
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  // RENDER
 
   render() {
     return (
@@ -387,7 +423,7 @@ class Wallet extends React.Component {
           <h1 style={{ color: "white" }}>
             ${parseFloat(this.state.Balance).toFixed(2)}
           </h1>
-          
+
           <h5 style={{ color: this.state.graphColor }}>
             {this.state.graphColor == "green" ? (
               <svg
@@ -413,17 +449,65 @@ class Wallet extends React.Component {
             ${this.state.gl}({this.state.pgl}%)
           </h5>
         </div>
-        <div style={{float: 'left', backgroundColor: "#1F1B24", alignItems: 'center', justifyContent: "center"}}>
-              <h4 style={{color: 'white'}}>Current Holdings: </h4>
-              <h4 style={{color: 'white'}}> <img src={Bitcoin} style={{ height: 50, width: 50 }} />BTC: {this.state.BTCHolding}</h4>
-              <h4 style={{color: 'white'}}> <img src={Ethereum} style={{ height: 50, width: 50 }} />ETH: {this.state.ETHHolding}</h4>
-              <h4 style={{color: 'white'}}> <img src={NewDoge} style={{ height: 50, width: 50 }} />DOGE: {this.state.DOGEHolding}</h4>
-            </div>
-            
-            <div style={{float: 'right', backgroundColor: '#1F1B24', alignItems: 'center', justifyContent: 'center'}}>
-              <h4 style={{color: 'white'}}>Orders:</h4>
-              <h4 style={{color: 'white'}}>{this.state.orders.map(order => order)}</h4>
-            </div>
+        <div
+          style={{
+            float: "left",
+            backgroundColor: "#1F1B24",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <h4 style={{ color: "white" }}>Current Holdings: </h4>
+          <h4 style={{ color: "white" }}>
+            {" "}
+            <img src={Bitcoin} style={{ height: 50, width: 50 }} />
+            BTC: {this.state.BTCHolding}
+          </h4>
+          <h4 style={{ color: "white" }}>
+            {" "}
+            <img src={Ethereum} style={{ height: 50, width: 50 }} />
+            ETH: {this.state.ETHHolding}
+          </h4>
+          <h4 style={{ color: "white" }}>
+            {" "}
+            <img src={NewDoge} style={{ height: 50, width: 50 }} />
+            DOGE: {this.state.DOGEHolding}
+          </h4>
+        </div>
+        <div
+          style={{
+            float: "right",
+            backgroundColor: "#1F1B24",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <h4 style={{ color: "white" }}>Orders:</h4>
+          <Table variant="dark">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Ticker</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.orders.map((order) => {
+                return [
+                  <tr>
+                    <td>{order.orderType}</td>
+                    <td>{order.ticker}</td>
+                    <td>{order.quantity}</td>
+                    <td>{order.total}</td>
+                    <td>{order.created_at}</td>
+                  </tr>,
+                ];
+              })}
+            </tbody>
+          </Table>
+        </div>
         {this.state.stockChartXValues.length > 0 ? (
           <div
             div
