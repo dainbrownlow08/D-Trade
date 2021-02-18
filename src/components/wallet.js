@@ -479,6 +479,36 @@ class Wallet extends React.Component {
             <img src={NewDoge} style={{ height: 50, width: 50 }} />
             DOGE: {this.state.DOGEHolding}
           </h4>
+          <h4 style={{ color: "white" }}>
+            {" "}
+            <img src={XRP} style={{ height: 50, width: 50 }} />
+            XRP: {this.state.XRPHolding}
+          </h4>
+          <h4 style={{ color: "white" }}>
+            {" "}
+            <img src={LTC} style={{ height: 50, width: 50 }} />
+            LTC: {this.state.LTCHolding}
+          </h4>
+          <h4 style={{ color: "white" }}>
+            {" "}
+            <img src={LINK} style={{ height: 50, width: 50 }} />
+            LINK: {this.state.LINKHolding}
+          </h4>
+          <h4 style={{ color: "white" }}>
+            {" "}
+            <img src={XMR} style={{ height: 50, width: 50 }} />
+            XMR: {this.state.XMRHolding}
+          </h4>
+          <h4 style={{ color: "white" }}>
+            {" "}
+            <img src={DOT} style={{ height: 50, width: 50 }} />
+            DOT: {this.state.DOTHolding}
+          </h4>
+          <h4 style={{ color: "white" }}>
+            {" "}
+            <img src={UNI} style={{ height: 50, width: 50 }} />
+            UNI: {this.state.UNIHolding}
+          </h4>
         </div>
         <div
           style={{
