@@ -10,14 +10,23 @@ class Wallet extends React.Component {
     Balance: 0,
     Cash: null,
     BTC: 0,
+    BTCcolor: "seagreen",
     ETH: 0,
+    ETHcolor: "seagreen",
     DOGE: 0,
+    DOGEcolor: "seagreen",
     XRP: 0,
+    XRPcolor: "seagreen",
     LTC: 0,
+    LTCcolor: "seagreen",
     LINK: 0,
+    LINKcolor: "seagreen",
     XMR: 0,
+    XMRcolor: "seagreen",
     DOT: 0,
+    DOTcolor: "seagreen",
     UNI: 0,
+    UNIcolor: "seagreen",
     BTCHolding: 0,
     ETHHolding: 0,
     XRPHolding: 0,
@@ -47,67 +56,203 @@ class Wallet extends React.Component {
         "X0kbMbhPp6LzaTdAqGgFuAFOewHjKdNycMfCu3LgnsO4mhT6wwjYHExnC7vnIkua",
     });
     binance.prices("BTCUSDT", (error, ticker) => {
-      this.setState({ BTC: parseFloat(ticker.BTCUSDT) }, () => {
-        binance.prices("ETHUSDT", (error, ticker) => {
-          this.setState({ ETH: parseFloat(ticker.ETHUSDT) }, () => {
-            binance.prices("DOGEUSDT", (error, ticker) => {
-              this.setState({ DOGE: parseFloat(ticker.DOGEUSDT) }, () => {
-                binance.prices("XRPUSDT", (error, ticker) => {
-                  this.setState({ XRP: parseFloat(ticker.XRPUSDT) }, () => {
-                    binance.prices("LTCUSDT", (error, ticker) => {
-                      this.setState({ LTC: parseFloat(ticker.LTCUSDT) }, () => {
-                        binance.prices("LINKUSDT", (error, ticker) => {
-                          this.setState(
-                            { LINK: parseFloat(ticker.LINKUSDT) },
-                            () => {
-                              binance.prices("XMRUSDT", (error, ticker) => {
-                                this.setState(
-                                  { XMR: parseFloat(ticker.XMRUSDT) },
-                                  () => {
-                                    binance.prices(
-                                      "DOTUSDT",
-                                      (error, ticker) => {
-                                        this.setState(
-                                          {
-                                            DOT: parseFloat(ticker.DOTUSDT),
-                                          },
-                                          () => {
-                                            binance.prices(
-                                              "UNIUSDT",
-                                              (error, ticker) => {
-                                                this.setState(
-                                                  {
-                                                    UNI: parseFloat(
-                                                      ticker.UNIUSDT
-                                                    ),
-                                                  },
-                                                  () => {
-                                                    this.getWallet(
-                                                      this.props.wallet.id
-                                                    );
-                                                  }
-                                                );
+      let color = this.state.BTCcolor;
+      if (color != "seagreen" && ticker.BTCUSDT > this.state.BTC) {
+        color = "seagreen";
+      }
+      if (color != "indianred" && ticker.BTCUSDT < this.state.BTC) {
+        color = "indianred";
+      }
+      this.setState(
+        { BTC: parseFloat(ticker.BTCUSDT), BTCcolor: color },
+        () => {
+          binance.prices("ETHUSDT", (error, ticker) => {
+            let color = this.state.ETHcolor;
+            if (color != "seagreen" && ticker.ETHUSDT > this.state.ETH) {
+              color = "seagreen";
+            }
+            if (color != "indianred" && ticker.ETHUSDT < this.state.ETH) {
+              color = "indianred";
+            }
+            this.setState(
+              { ETH: parseFloat(ticker.ETHUSDT), ETHcolor: color },
+              () => {
+                binance.prices("DOGEUSDT", (error, ticker) => {
+                  let color = this.state.DOGEcolor;
+                  if (
+                    color != "seagreen" &&
+                    ticker.DOGEUSDT > this.state.DOGE
+                  ) {
+                    color = "seagreen";
+                  }
+                  if (
+                    color != "indianred" &&
+                    ticker.DOGEUSDT < this.state.DOGE
+                  ) {
+                    color = "indianred";
+                  }
+                  this.setState(
+                    { DOGE: parseFloat(ticker.DOGEUSDT), DOGEcolor: color },
+                    () => {
+                      binance.prices("XRPUSDT", (error, ticker) => {
+                        let color = this.state.XRPcolor;
+                        if (
+                          color != "seagreen" &&
+                          ticker.XRPUSDT > this.state.XRP
+                        ) {
+                          color = "seagreen";
+                        }
+                        if (
+                          color != "indianred" &&
+                          ticker.XRPUSDT < this.state.XRP
+                        ) {
+                          color = "indianred";
+                        }
+                        this.setState(
+                          { XRP: parseFloat(ticker.XRPUSDT), XRPcolor: color },
+                          () => {
+                            binance.prices("LTCUSDT", (error, ticker) => {
+                              let color = this.state.LTCcolor;
+                              if (
+                                color != "seagreen" &&
+                                ticker.LTCUSDT > this.state.LTC
+                              ) {
+                                color = "seagreen";
+                              }
+                              if (
+                                color != "indianred" &&
+                                ticker.LTCUSDT < this.state.LTC
+                              ) {
+                                color = "indianred";
+                              }
+                              this.setState(
+                                {
+                                  LTC: parseFloat(ticker.LTCUSDT),
+                                  LINKcolor: color,
+                                },
+                                () => {
+                                  binance.prices(
+                                    "LINKUSDT",
+                                    (error, ticker) => {
+                                      this.setState(
+                                        { LINK: parseFloat(ticker.LINKUSDT) },
+                                        () => {
+                                          binance.prices(
+                                            "XMRUSDT",
+                                            (error, ticker) => {
+                                              let color = this.state.XMRcolor;
+                                              if (
+                                                color != "seagreen" &&
+                                                ticker.XMRUSDT > this.state.XMR
+                                              ) {
+                                                color = "seagreen";
                                               }
-                                            );
-                                          }
-                                        );
-                                      }
-                                    );
-                                  }
-                                );
-                              });
-                            }
-                          );
-                        });
+                                              if (
+                                                color != "indianred" &&
+                                                ticker.XMRUSDT < this.state.XMR
+                                              ) {
+                                                color = "indianred";
+                                              }
+                                              this.setState(
+                                                {
+                                                  XMR: parseFloat(
+                                                    ticker.XMRUSDT
+                                                  ),
+                                                  XMRcolor: color,
+                                                },
+                                                () => {
+                                                  binance.prices(
+                                                    "DOTUSDT",
+                                                    (error, ticker) => {
+                                                      let color = this.state
+                                                        .DOTcolor;
+                                                      if (
+                                                        color != "seagreen" &&
+                                                        ticker.DOTUSDT >
+                                                          this.state.DOT
+                                                      ) {
+                                                        color = "seagreen";
+                                                      }
+                                                      if (
+                                                        color != "indianred" &&
+                                                        ticker.DOTUSDT <
+                                                          this.state.DOT
+                                                      ) {
+                                                        color = "indianred";
+                                                      }
+                                                      this.setState(
+                                                        {
+                                                          DOT: parseFloat(
+                                                            ticker.DOTUSDT
+                                                          ),
+                                                          DOTcolor: color,
+                                                        },
+                                                        () => {
+                                                          binance.prices(
+                                                            "UNIUSDT",
+                                                            (error, ticker) => {
+                                                              let color = this
+                                                                .state.UNIcolor;
+                                                              if (
+                                                                color !=
+                                                                  "seagreen" &&
+                                                                ticker.UNIUSDT >
+                                                                  this.state.UNI
+                                                              ) {
+                                                                color =
+                                                                  "seagreen";
+                                                              }
+                                                              if (
+                                                                color !=
+                                                                  "indianred" &&
+                                                                ticker.UNIUSDT <
+                                                                  this.state.UNI
+                                                              ) {
+                                                                color =
+                                                                  "indianred";
+                                                              }
+                                                              this.setState(
+                                                                {
+                                                                  UNI: parseFloat(
+                                                                    ticker.UNIUSDT
+                                                                  ),
+                                                                  UNIcolor: color,
+                                                                },
+                                                                () => {
+                                                                  this.getWallet(
+                                                                    this.props
+                                                                      .wallet.id
+                                                                  );
+                                                                }
+                                                              );
+                                                            }
+                                                          );
+                                                        }
+                                                      );
+                                                    }
+                                                  );
+                                                }
+                                              );
+                                            }
+                                          );
+                                        }
+                                      );
+                                    }
+                                  );
+                                }
+                              );
+                            });
+                          }
+                        );
                       });
-                    });
-                  });
+                    }
+                  );
                 });
-              });
-            });
+              }
+            );
           });
-        });
-      });
+        }
+      );
     });
   };
 
@@ -360,7 +505,7 @@ class Wallet extends React.Component {
     return (
       <Fragment>
         <br />
-        <Container>
+        <div className="outer">
           <Row>
             <Col xs={2}>
               <Row>
@@ -587,7 +732,7 @@ class Wallet extends React.Component {
                 </div>
               </Row>
             </Col>
-            <Col style={{ padding: "28px" }}>
+            <Col style={{ padding: "40px" }}>
               <div>
                 <h8 className="right-title">Exchange</h8>
                 <div className="market">
@@ -596,7 +741,12 @@ class Wallet extends React.Component {
                       <p className="ticker">BTC/USD</p>
                     </Col>
                     <Col>
-                      <p className="price">{this.state.BTC}</p>
+                      <p
+                        style={{ color: this.state.BTCcolor }}
+                        className="price"
+                      >
+                        {this.state.BTC}
+                      </p>
                     </Col>
                   </Row>
                   <Row>
@@ -604,7 +754,12 @@ class Wallet extends React.Component {
                       <p className="ticker">ETH/USD</p>
                     </Col>
                     <Col>
-                      <p className="price">{this.state.ETH}</p>
+                      <p
+                        style={{ color: this.state.ETHcolor }}
+                        className="price"
+                      >
+                        {this.state.ETH}
+                      </p>
                     </Col>
                   </Row>
                   <Row>
@@ -612,7 +767,12 @@ class Wallet extends React.Component {
                       <p className="ticker">LTC/USD</p>
                     </Col>
                     <Col>
-                      <p className="price">{this.state.LTC}</p>
+                      <p
+                        style={{ color: this.state.LTCcolor }}
+                        className="price"
+                      >
+                        {this.state.LTC}
+                      </p>
                     </Col>
                   </Row>
                   <Row>
@@ -620,7 +780,12 @@ class Wallet extends React.Component {
                       <p className="ticker">XMR/USD</p>
                     </Col>
                     <Col>
-                      <p className="price">{this.state.XMR}</p>
+                      <p
+                        style={{ color: this.state.LTCcolor }}
+                        className="price"
+                      >
+                        {this.state.LTC}
+                      </p>
                     </Col>
                   </Row>
                   <Row>
@@ -628,7 +793,12 @@ class Wallet extends React.Component {
                       <p className="ticker">DOGE/USD</p>
                     </Col>
                     <Col>
-                      <p className="price">{this.state.DOGE.toFixed(5)}</p>
+                      <p
+                        style={{ color: this.state.DOGEcolor }}
+                        className="price"
+                      >
+                        {this.state.DOGE.toFixed(5)}
+                      </p>
                     </Col>
                   </Row>
                   <Row>
@@ -636,7 +806,12 @@ class Wallet extends React.Component {
                       <p className="ticker">LINK/USD</p>
                     </Col>
                     <Col>
-                      <p className="price">{this.state.LINK}</p>
+                      <p
+                        style={{ color: this.state.LINKcolor }}
+                        className="price"
+                      >
+                        {this.state.LINK}
+                      </p>
                     </Col>
                   </Row>
                   <Row>
@@ -644,7 +819,12 @@ class Wallet extends React.Component {
                       <p className="ticker">XRP/USD</p>
                     </Col>
                     <Col>
-                      <p className="price">{this.state.XRP}</p>
+                      <p
+                        style={{ color: this.state.XRPcolor }}
+                        className="price"
+                      >
+                        {this.state.XRP}
+                      </p>
                     </Col>
                   </Row>
                   <Row>
@@ -652,7 +832,12 @@ class Wallet extends React.Component {
                       <p className="ticker">DOT/USD</p>
                     </Col>
                     <Col>
-                      <p className="price">{this.state.DOT}</p>
+                      <p
+                        style={{ color: this.state.DOTcolor }}
+                        className="price"
+                      >
+                        {this.state.DOT}
+                      </p>
                     </Col>
                   </Row>
                   <Row>
@@ -660,7 +845,12 @@ class Wallet extends React.Component {
                       <p className="ticker">UNI/USD</p>
                     </Col>
                     <Col>
-                      <p className="price">{this.state.UNI}</p>
+                      <p
+                        style={{ color: this.state.UNIcolor }}
+                        className="price"
+                      >
+                        {this.state.UNI}
+                      </p>
                     </Col>
                   </Row>
                 </div>
@@ -672,16 +862,16 @@ class Wallet extends React.Component {
                     if (order.orderType == "Buy") {
                       return (
                         <Row>
-                          <Col xs={3}>
-                            <p className="Buy2">{order.ticker}</p>
-                          </Col>
                           <Col xs={4}>
                             <p className="Buy">{order.total}</p>
+                          </Col>
+                          <Col xs={3}>
+                            <p className="Buy2">{order.ticker}</p>
                           </Col>
                           <Col>
                             <p className="Buy2">
                               {order.quantity > 1000
-                                ? `${order.quantity / 1000}k`
+                                ? `${(order.quantity / 1000).toFixed(1)}k`
                                 : order.quantity}
                             </p>
                           </Col>
@@ -690,16 +880,16 @@ class Wallet extends React.Component {
                     } else {
                       return (
                         <Row>
-                          <Col xs={3}>
-                            <p className="Sell2">{order.ticker}</p>
-                          </Col>
                           <Col xs={4}>
                             <p className="Sell">{order.total}</p>
+                          </Col>
+                          <Col xs={3}>
+                            <p className="Sell2">{order.ticker}</p>
                           </Col>
                           <Col>
                             <p className="Sell2">
                               {order.quantity > 1000
-                                ? `${order.quantity / 1000}k`
+                                ? `${(order.quantity / 1000).toFixed(1)}k`
                                 : order.quantity}
                             </p>
                           </Col>
@@ -718,7 +908,7 @@ class Wallet extends React.Component {
               </Alert>
             </Container>
           ) : null}
-        </Container>
+        </div>
         <br />
         <br />
       </Fragment>

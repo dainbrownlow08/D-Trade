@@ -12,6 +12,7 @@ import Navigation from "./components/Navigation.js";
 import Login from "./components/Login.js";
 import Register from "./components/register.js";
 import Wallet from "./components/wallet.js";
+import Orders from "./components/Orders.js";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -21,10 +22,10 @@ class App extends React.Component {
     wallet: null,
   };
 
-  handleLogin = (e) => {
+  handleLogin = (e, o) => {
     e.preventDefault();
-    let username = e.target.username.value;
-    let password = e.target.password.value;
+    let username = o.username;
+    let password = o.password;
     fetch(`http://localhost:3000/users/${username}-${password}`)
       .then((res) => res.json())
       .then((newWallet) => {
@@ -34,10 +35,10 @@ class App extends React.Component {
       });
   };
 
-  handleRegister = (e) => {
+  handleRegister = (e, o) => {
     e.preventDefault();
-    let username = e.target.username.value;
-    let password = e.target.password.value;
+    let username = o.username;
+    let password = o.password;
     let data = { username: username, password: password };
     fetch("http://localhost:3000/users", {
       method: "POST",
@@ -88,6 +89,13 @@ class App extends React.Component {
             <Route exact path="/wallet">
               {this.state.loggedIn === true ? (
                 <Wallet wallet={this.state.wallet} />
+              ) : (
+                <Redirect to="/home" />
+              )}
+            </Route>
+            <Route exact path="/history">
+              {this.state.loggedIn === true ? (
+                <Orders wallet={this.state.wallet} />
               ) : (
                 <Redirect to="/home" />
               )}

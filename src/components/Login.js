@@ -1,27 +1,81 @@
 import React from "react";
+import { Form, Container } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 
 class Login extends React.Component {
+  state = {
+    username: "",
+    password: "",
+  };
+
+  onUsernameChange = (e) => {
+    if (e.target.value) {
+      this.setState({
+        username: e.target.value,
+      });
+    } else {
+      this.setState({
+        username: "",
+      });
+    }
+  };
+
+  onPasswordChange = (e) => {
+    if (e.target.value) {
+      this.setState({
+        password: e.target.value,
+      });
+    } else {
+      this.setState({
+        password: "",
+      });
+    }
+  };
+
+  createLogin = () => {
+    return {
+      username: this.state.username,
+      password: this.state.password,
+    };
+  };
+
   render() {
     return (
       <div>
-        <form onSubmit={this.props.handleLogin}>
-          <h3>Enter Username</h3>
-          <input
-            type="text"
-            name="username"
-            placeholder="Username..."
-            className="input-text"
-          />
-          <h3>Password</h3>
-          <input
-            type="text"
-            name="password"
-            placeholder="Password..."
-            className="input-text"
-          />
-          <br />
-          <input type="submit" name="submit" value="Login" className="submit" />
-        </form>
+        <Container>
+          <Form
+            onSubmit={(e) => {
+              this.props.handleLogin(e, this.createLogin());
+            }}
+          >
+            <Form.Label>Enter Username</Form.Label>
+            <Form.Control
+              onChange={(e) => this.onUsernameChange(e)}
+              type="string"
+              placeholder="Username..."
+              style={{
+                backgroundColor: "#181818",
+                borderColor: "#333333",
+                color: "#C0C0C0",
+              }}
+            />
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              onChange={(e) => this.onPasswordChange(e)}
+              type="string"
+              placeholder="Password..."
+              style={{
+                backgroundColor: "#181818",
+                borderColor: "#333333",
+                color: "#C0C0C0",
+              }}
+            />
+            <br />
+            <Button variant="dark" type="submit">
+              Submit
+            </Button>
+          </Form>
+        </Container>
       </div>
     );
   }

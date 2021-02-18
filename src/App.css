@@ -59,7 +59,7 @@
 
 .holding-flag {
   background-color: #242424;
-  width: 140px;
+  width: 185px;
   height: 30px;
 }
 
@@ -72,7 +72,7 @@
 
 .holding {
   outline: 1px solid #333333;
-  width: 140px;
+  width: 185px;
   height: 350px;
 }
 
@@ -99,7 +99,7 @@
 
 .market {
   outline: 1px solid #333333;
-  width: 157px;
+  width: 185px;
   height: 350px;
 }
 
@@ -128,6 +128,18 @@
   font-size: x-small;
 }
 
+.greenprice {
+  color: seagreen;
+  padding-top: 9px;
+  font-size: x-small;
+}
+
+.redprice {
+  color: indianred;
+  padding-top: 9px;
+  font-size: x-small;
+}
+
 .right-title {
   color: #c0c0c0;
   font-weight: bold;
@@ -135,7 +147,7 @@
 
 .history {
   outline: 1px solid #333333;
-  width: 157px;
+  width: 185px;
   height: 390px;
 }
 
@@ -150,7 +162,7 @@
 .Buy2 {
   color: #c0c0c0;
   padding-top: 9px;
-  padding-left: 6px;
+  padding-left: 10px;
   font-size: x-small;
 }
 
@@ -165,6 +177,48 @@
 .Sell2 {
   color: #c0c0c0;
   padding-top: 9px;
-  padding-left: 6px;
+  padding-left: 10px;
   font-size: x-small;
+}
+
+.outer {
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.order-img {
+  padding-top: 2px;
+  margin-left: 6px;
+  height: 20px;
+  width: 20px;
+}
+
+.order-p {
+  color: #c0c0c0;
+  padding-top: 2px;
+}
+
+.o-d {
+  outline: 1px solid #333333;
+  width: 1000px;
+  height: 30px;
+  margin-top: 10px;
+}
+
+.o-d-top {
+  outline: 1px solid #333333;
+  background-color: #242424;
+  width: 1000px;
+  height: 30px;
+  margin-top: 10px;
+}
+
+.timestamp {
+  width: 300px;
+}
+
+#order1 {
+  color: #c0c0c0;
+  padding-top: 2px;
+  margin-left: 6px;
 }
