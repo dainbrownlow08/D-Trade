@@ -6,7 +6,7 @@ import Ethereum from "../containers/Ethereum.png";
 import Bitcoin from "../containers/Bitcoin.png";
 // import { pub, priv } from "../keys.js";
 import OrderForm from "./OrderForm.js";
-import Alert from "react-bootstrap/Alert";
+import { Container, Form, Row, Col, Button, Alert } from "react-bootstrap";
 const Binance = require("node-binance-api");
 
 class Wallet extends React.Component {
@@ -407,7 +407,9 @@ class Wallet extends React.Component {
             <p>Invalid transaction. Please check your balances.</p>
           </Alert>
         ) : null}
-        <button onClick={this.toggleForm}>Create Order</button>
+        <Button variant="dark" onClick={this.toggleForm}>
+          Create Order
+        </Button>
         <br></br>
         <div
           id="flex-item"
