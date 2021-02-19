@@ -1,18 +1,23 @@
 import React, { Fragment } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import logo from "../img/logo.png";
 
 function Navigation(props) {
   return (
     <Fragment>
       <Navbar style={{ backgroundColor: "#212833" }}>
         {!props.loggedIn ? (
-          <LinkContainer style={{ color: "#C0C0C0" }} to="/">
-            <Navbar.Brand>D-TRADE</Navbar.Brand>
+          <LinkContainer style={{ color: "#C0C0C0" }} to="/home">
+            <Navbar.Brand>
+              <img style={{ width: 244, height: 50 }} src={logo}></img>
+            </Navbar.Brand>
           </LinkContainer>
         ) : (
           <LinkContainer style={{ color: "#C0C0C0" }} to="/wallet">
-            <Navbar.Brand>D-TRADE</Navbar.Brand>
+            <Navbar.Brand>
+              <img style={{ width: 244, height: 50 }} src={logo}></img>
+            </Navbar.Brand>
           </LinkContainer>
         )}
         <Nav className="ml-auto">
@@ -31,7 +36,7 @@ function Navigation(props) {
               <LinkContainer style={{ color: "#C0C0C0" }} to="/history">
                 <Nav.Link>Trade History</Nav.Link>
               </LinkContainer>
-              <LinkContainer style={{ color: "#C0C0C0" }} to="/">
+              <LinkContainer style={{ color: "#C0C0C0" }} to="/home">
                 <Nav.Link onClick={props.handleLogout}>Log Out</Nav.Link>
               </LinkContainer>
             </Fragment>

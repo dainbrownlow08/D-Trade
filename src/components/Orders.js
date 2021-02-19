@@ -1,13 +1,13 @@
 import React, { Fragment } from "react";
-import NewDoge from "../containers/NewDoge.png";
-import Ethereum from "../containers/Ethereum.png";
-import Bitcoin from "../containers/Bitcoin.png";
-import XRP from "../containers/XRP.png";
-import LTC from "../containers/LTC.png";
-import LINK from "../containers/LINK.png";
-import XMR from "../containers/XMR.png";
-import DOT from "../containers/DOT.png";
-import UNI from "../containers/UNI.png";
+import NewDoge from "../img/NewDoge.png";
+import Ethereum from "../img/Ethereum.png";
+import Bitcoin from "../img/Bitcoin.png";
+import XRP from "../img/XRP.png";
+import LTC from "../img/LTC.png";
+import LINK from "../img/LINK.png";
+import XMR from "../img/XMR.png";
+import DOT from "../img/DOT.png";
+import UNI from "../img/UNI.png";
 import { Container, Row, Col } from "react-bootstrap";
 
 class Orders extends React.Component {
