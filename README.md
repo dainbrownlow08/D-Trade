@@ -14,6 +14,7 @@
 <h3>Created By:</h3>
 
 <h3>Dain Brownlow: Dain.Brownlow@outlook.com</h3>
-<img src='../containers/Dain.jpg' height='50' width='50'>
-
+<p>
+<img src="../containers/Dain.jpg" height='50' width='50'>
+</p>
 <h3>Dustin Rothschild: Drothschild89@gmail.com</h3>
