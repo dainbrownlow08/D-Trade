@@ -7,7 +7,7 @@ function Navigation(props) {
     <Fragment>
       <Navbar style={{ backgroundColor: "#212833" }}>
         {!props.loggedIn ? (
-          <LinkContainer style={{ color: "#C0C0C0" }} to="/">
+          <LinkContainer style={{ color: "#C0C0C0" }} to="/home">
             <Navbar.Brand>D-TRADE</Navbar.Brand>
           </LinkContainer>
         ) : (
@@ -31,7 +31,7 @@ function Navigation(props) {
               <LinkContainer style={{ color: "#C0C0C0" }} to="/history">
                 <Nav.Link>Trade History</Nav.Link>
               </LinkContainer>
-              <LinkContainer style={{ color: "#C0C0C0" }} to="/">
+              <LinkContainer style={{ color: "#C0C0C0" }} to="/home">
                 <Nav.Link onClick={props.handleLogout}>Log Out</Nav.Link>
               </LinkContainer>
             </Fragment>
