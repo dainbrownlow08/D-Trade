@@ -16,5 +16,5 @@
 <h3>Dain Brownlow: Dain.Brownlow@outlook.com</h3>
 <img src="./src/containers/Dain.jpg" height='300' width='250'>
 
-<h3>Dustin Rothschild: Drothschild89@gmail.com</h3>
-<img src="./src/containers/Dustin.jpg" height='300' width='250'>
+<!-- <h3>Dustin Rothschild: Drothschild89@gmail.com</h3>
+<img src="./src/containers/Dustin.jpg" height='300' width='250'> -->
