@@ -17,4 +17,4 @@
 <img src="./src/containers/Dain.jpg" height='300' width='250'>
 
 <h3>Dustin Rothschild: Drothschild89@gmail.com</h3>
-<img src="./src/containers/Dustin.jpg" height='400' width='250'>
+<img src="./src/containers/Dustin.jpg" height='600' width='250'>
