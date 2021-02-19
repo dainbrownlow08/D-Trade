@@ -13,6 +13,7 @@ import Login from "./components/Login.js";
 import Register from "./components/register.js";
 import Wallet from "./components/wallet.js";
 import Orders from "./components/Orders.js";
+import Home from './components/Home.js'
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Fragment } from "react";
@@ -85,6 +86,13 @@ class App extends React.Component {
           />
           <br />
           <Switch>
+          <Route exact path="/">
+              {this.state.loggedIn === true ? (
+                <Orders wallet={this.state.wallet} />
+              ) : (
+                <Redirect to="/home" />
+              )}
+            </Route>
             <Route exact path="/login">
               {this.state.loggedIn === true ? (
                 <Redirect to="/wallet" />
@@ -136,6 +144,9 @@ class App extends React.Component {
               ) : (
                 <Redirect to="/home" />
               )}
+            </Route>
+            <Route exact path="/home">
+             <Home/>
             </Route>
           </Switch>
         </div>

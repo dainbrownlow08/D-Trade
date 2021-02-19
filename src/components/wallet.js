@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import Plot from "react-plotly.js";
-// import { pub, priv } from "../keys.js";
+import { pub, priv } from "../keys.js";
 import OrderForm from "./OrderForm.js";
 import { Container, Row, Col, Alert } from "react-bootstrap";
 const Binance = require("node-binance-api");
@@ -50,10 +50,8 @@ class Wallet extends React.Component {
 
   prices = () => {
     const binance = new Binance().options({
-      APIKEY:
-        "WG4DzDb0c8lynHfMv6BGr2wFoeXMUJHCvsfr5R8Fd440uScg1Y3Wono4EjlN3i9a",
-      APISECRET:
-        "X0kbMbhPp6LzaTdAqGgFuAFOewHjKdNycMfCu3LgnsO4mhT6wwjYHExnC7vnIkua",
+      APIKEY: pub,
+      APISECRET: priv,
     });
     binance.prices("BTCUSDT", (error, ticker) => {
       let color = this.state.BTCcolor;
