@@ -9,6 +9,14 @@
 <h2>Setup and Installation</h2>
 <h3>Fork and clone this repository along with the d-trade backend repository. Enter in to the command line: cd d-trade. Then type: bundle install and hit return. Next enter in to the command line: rails db:migrate and then: rails db:seed. Enter in to the command line: rails s and then move to the front end. To do this, enter cd: d-trade-front-end in to the command line. Next enter: npm install followed by npm start which should load D-Trade in to your browser. </h3>
 
+<h3>Screenshots</h3>
+<img src="./src/img/Screenshot1.jpg" height='500' width='750'>
+<img src="./src/img/Screenshot2.jpg" height='500' width='750'>
+<img src="./src/img/Screenshot3.jpg" height='500' width='750'>
+
+<h3>Link to backend code</h3>
+<h3>https://github.com/dainbrownlow08/D-Trade-back-end</h3>
+
 <h3>Created with Ruby: 2.6.1, Rails: 6.11, Javascript: ES6, React: 17.0.1</h3>
 
 <h3>Created By:</h3>
