@@ -14,7 +14,7 @@
 <img src="./src/img/Screenshot2.jpg" height='500' width='750'>
 <img src="./src/img/Screenshot3.jpg" height='500' width='750'>
 
-<h3>Link to backend code</h3>
+<h3>Link to backend code:</h3>
 <h3>https://github.com/dainbrownlow08/D-Trade-back-end</h3>
 
 <h3>Created with Ruby: 2.6.1, Rails: 6.11, Javascript: ES6, React: 17.0.1</h3>
