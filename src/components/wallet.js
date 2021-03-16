@@ -4,7 +4,6 @@ import { pub, priv } from "../keys.js";
 import OrderForm from "./OrderForm.js";
 import { Container, Row, Col, Alert } from "react-bootstrap";
 const Binance = require("node-binance-api");
-
 class Wallet extends React.Component {
   state = {
     Balance: 0,
