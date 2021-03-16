@@ -37,7 +37,6 @@ class Wallet extends React.Component {
     DOTHolding: 0,
     UNIHolding: 0,
     stockChartXValues: [],
-    xCount: 0,
     stockChartYValues: [],
     orders: [],
     graphColor: "seagreen",
