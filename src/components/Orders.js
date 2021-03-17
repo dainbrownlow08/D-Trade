@@ -33,14 +33,6 @@ class Orders extends React.Component {
     document.body.style.background = "#181818";
   }
 
-  // clearOrders = (order) => {
-  //   fetch(`http://localhost:3000/orders/${order.id}`, {
-  //     method: 'DELETE',
-  // })
-  // .then(res => res.json())
-  // .then(res => console.log(res))
-  // }
-
   render() {
     return (
       <Fragment>
