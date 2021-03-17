@@ -1,4 +1,4 @@
-<h1>D-Trade</h1>
+<h1>D-Trade </h1>
 
 <h3> A pair project with personalized cryptocurrency trading using pretend money and featuring real market updates every five seconds. Includes a live updating scatter plot graph of your current account balance.</h3>
 
