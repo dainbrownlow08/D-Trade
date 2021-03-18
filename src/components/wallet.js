@@ -436,7 +436,6 @@ class Wallet extends React.Component {
     })
       .then((res) => res.json())
       .then((order) => {
-        console.log(order);
         let newOrders = this.state.orders;
         if (newOrders.length == 10) {
           newOrders.unshift(order);
